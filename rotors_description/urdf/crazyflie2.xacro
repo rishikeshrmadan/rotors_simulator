@@ -1,28 +1,38 @@
 <?xml version="1.0"?>
 <!--
-  TO BE CHANGED TO EDRONE.xacro due to changes in arm length and extra motors
+  Copyright 2018 Giuseppe Silano, University of Sannio in Benevento, Italy
+  Copyright 2018 Emanuele Aucone, University of Sannio in Benevento, Italy
+  Copyright 2018 Benjamin Rodriguez, MIT, USA
+  Copyright 2018 Luigi Iannelli, University of Sannio in Benevento, Italy
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 -->
 
-<robot name="edrone" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="crazyflie2" xmlns:xacro="http://ros.org/wiki/xacro">
   <!-- Properties (Taken from Novel Dynamic Inversion Architecture Design for Quadrocopter Control by Jian Wang et al.) -->
   <xacro:property name="namespace" value="$(arg mav_name)" />
-  <xacro:property name="rotor_velocity_slowdown_sim" value="5" />
+  <xacro:property name="rotor_velocity_slowdown_sim" value="50" />
   <xacro:property name="use_mesh_file" value="true" />
-  <!-- <xacro:property name="mesh_file" value="package://rotors_description/meshes/crazyflie2.dae" /> -->
-  <xacro:property name="mesh_file" value="package://rotors_description/meshes/edrone_frame.stl" />
-  <xacro:property name="mass" value="0.027" /> <!-- [kg] -->
-  <xacro:property name="body_width" value="0.11" /> <!-- [m] -->
-  <xacro:property name="body_height" value="0.036" /> <!-- [m] -->
-  <xacro:property name="mass_rotor" value="0.00033" /> <!-- [kg] -->
-  <xacro:property name="arm_length" value="0.065" /> <!-- [m] -->
-  <!-- <xacro:property name="rotor_offset_top" value="0.024" /> --> <!-- [m] -->
-  <xacro:property name="rotor_offset_top" value="0.015" />
-  <xacro:property name="motor_offset_top" value="-0.015" />
+  <xacro:property name="mesh_file" value="package://rotors_description/meshes/crazyflie2.dae" />
+  <xacro:property name="mass" value="0.025" /> <!-- [kg] -->
+  <xacro:property name="body_width" value="0.045" /> <!-- [m] -->
+  <xacro:property name="body_height" value="0.03" /> <!-- [m] -->
+  <xacro:property name="mass_rotor" value="0.0005" /> <!-- [kg] -->
+  <xacro:property name="arm_length" value="0.046" /> <!-- [m] -->
+  <xacro:property name="rotor_offset_top" value="0.024" /> <!-- [m] -->
   <xacro:property name="radius_rotor" value="0.0225" /> <!-- [m] -->
   <!-- Forster's -->
-  <!-- [kg m/s^2] -->
-  <xacro:property name="motor_constant" value="1.28192e-08" />
-  <!-- <xacro:property name="motor_constant" value="1e-07" />  -->
+  <xacro:property name="motor_constant" value="1.28192e-08" /> <!-- [kg m/s^2] -->
   <xacro:property name="moment_constant" value="5.964552e-03" /> <!-- [m] -->
   <xacro:property name="time_constant_up" value="0.0125" /> <!-- [s] -->
   <xacro:property name="time_constant_down" value="0.025" /> <!-- [s] -->
@@ -33,12 +43,12 @@
 
   <!-- Property Blocks -->
   <xacro:property name="body_inertia">
-    <inertia ixx="1.657171e-06" ixy="0.0" ixz="0.0" iyy="1.657171e-06" iyz="0.0" izz="2.9261652e-06" />
+    <inertia ixx="1.657171e-05" ixy="0.0" ixz="0.0" iyy="1.657171e-05" iyz="0.0" izz="2.9261652e-05" />
   </xacro:property>
 
   <!-- inertia of a single rotor, assuming it is a cuboid. Height=0.4mm, width=0.8mm -->
   <xacro:property name="rotor_inertia">
-    <xacro:box_inertia x="${radius_rotor}" y="0.001" z="0.0003" mass="${mass_rotor*rotor_velocity_slowdown_sim}" />
+    <xacro:box_inertia x="${radius_rotor}" y="0.007" z="0.003" mass="${mass_rotor*rotor_velocity_slowdown_sim}" />
   </xacro:property>
 
   <!-- Included URDF Files -->
@@ -77,15 +87,6 @@
     <origin xyz="${sqrt2by2 * arm_length} -${sqrt2by2 * arm_length} ${rotor_offset_top}" rpy="0 0 0" />
     <xacro:insert_block name="rotor_inertia" />
   </xacro:vertical_rotor>
-  <xacro:vertical_motor 
-    radius_rotor="${radius_rotor}"
-    motor_number="0"
-    parent="${namespace}/base_link"
-    robot_namespace="${namespace}"
-    suffix="front_right">
-    <origin xyz="${sqrt2by2 * arm_length} -${sqrt2by2 * arm_length} ${motor_offset_top}" rpy="1.570796327 0 0"/>
-  </xacro:vertical_motor>
-
 
   <xacro:vertical_rotor
     robot_namespace="${namespace}"
@@ -108,14 +109,6 @@
     <origin xyz="-${sqrt2by2 * arm_length} ${sqrt2by2 * arm_length} ${rotor_offset_top}" rpy="0 0 0" />
     <xacro:insert_block name="rotor_inertia" />
   </xacro:vertical_rotor>
-  <xacro:vertical_motor 
-    radius_rotor="${radius_rotor}"
-    motor_number="1"
-    parent="${namespace}/base_link"
-    robot_namespace="${namespace}"
-    suffix="back_left">
-    <origin xyz="-${sqrt2by2 * arm_length} ${sqrt2by2 * arm_length} ${motor_offset_top}" rpy="1.570796327 0 0"/>
-  </xacro:vertical_motor>
 
   <xacro:vertical_rotor robot_namespace="${namespace}"
     suffix="front_left"
@@ -137,14 +130,6 @@
     <origin xyz="${sqrt2by2 * arm_length} ${sqrt2by2 * arm_length} ${rotor_offset_top}" rpy="0 0 0" />
     <xacro:insert_block name="rotor_inertia" />
   </xacro:vertical_rotor>
-  <xacro:vertical_motor 
-    radius_rotor="${radius_rotor}"
-    motor_number="2"
-    parent="${namespace}/base_link"
-    robot_namespace="${namespace}"
-    suffix="front_left">
-    <origin xyz="${sqrt2by2 * arm_length} ${sqrt2by2 * arm_length} ${motor_offset_top}" rpy="1.570796327 0 0"/>
-  </xacro:vertical_motor>
 
   <xacro:vertical_rotor robot_namespace="${namespace}"
     suffix="back_right"
@@ -166,13 +151,4 @@
     <origin xyz="-${sqrt2by2 * arm_length} -${sqrt2by2 * arm_length} ${rotor_offset_top}" rpy="0 0 0" />
     <xacro:insert_block name="rotor_inertia" />
   </xacro:vertical_rotor>
-  <xacro:vertical_motor 
-    radius_rotor="${radius_rotor}"
-    motor_number="3"
-    parent="${namespace}/base_link"
-    robot_namespace="${namespace}"
-    suffix="back_right">
-    <origin xyz="-${sqrt2by2 * arm_length } -${sqrt2by2 * arm_length} ${motor_offset_top}" rpy="1.570796327 0 0"/>
-  </xacro:vertical_motor>
-
 </robot>

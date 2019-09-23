@@ -19,6 +19,7 @@
  */
 
 
+
 #include "rotors_edrone_interface/edrone_trans.h"
 
 #include <mav_msgs/default_topics.h>
@@ -45,11 +46,11 @@ Edrone_Trans::Edrone_Trans() {
   pnh.param("max_roll", max_.roll, 8.5 * M_PI / 180.0);  // [rad]
   pnh.param("max_pitch", max_.pitch, 8.5 * M_PI / 180.0);  // [rad]
   pnh.param("max_yaw_rate", max_.rate_yaw, 45.0 * M_PI / 180.0);  // [rad/s]
-  pnh.param("max_thrust", max_.thrust, 4.0);  // [N]
+  pnh.param("max_thrust", max_.thrust, 17.32);  // [N]
   pnh.param("division_factor", div_factor, 85.0);  
   pnh.param("v_yaw_step", v_yaw_step_, 0.05);  // [rad/s]
   pnh.param("v_yaw_step", v_yaw_step_, 0.05);
-  pnh.param("thrust_weight_offset_newtons",thrust_weight_offset_newtons_, 0.294);//14.896);
+  pnh.param("thrust_weight_offset_newtons",thrust_weight_offset_newtons_, 0.2496);//14.896);
   edrone_sub_ = nh_.subscribe("/drone_command", 50, &Edrone_Trans::TransCallback, this);
   namespace_ = nh_.getNamespace();
 }
@@ -67,14 +68,15 @@ void Edrone_Trans::TransCallback(const edrone_client::edrone_msgs::ConstPtr& msg
   control_msg_.roll = ((msg->rcRoll-1500) * max_.roll/div_factor)*axes_.roll_direction;
   control_msg_.pitch = ((msg->rcPitch-1500) * max_.pitch/div_factor)* axes_.pitch_direction;
   control_msg_.yaw_rate = current_yaw_vel_;
-  if(msg->rcThrottle>1499)
-    control_msg_.thrust.z = ((-1500+msg->rcThrottle)/500.0)*max_.thrust+thrust_weight_offset_newtons_;
-  else
-    control_msg_.thrust.z = (1.0 -((1500-msg->rcThrottle)/200.0))*thrust_weight_offset_newtons_;
+  // if(msg->rcThrottle>1499)
+  //   control_msg_.thrust.z = (1.0+(-1500+msg->rcThrottle)/500.0)*max_.thrust;//+thrust_weight_offset_newtons_;
+  // else
+  //   control_msg_.thrust.z = (1.0 -((1500-msg->rcThrottle)/550.0))*max_.thrust;
+  //control_msg_.thrust.z = ((msg->rcThrottle-1000)/1000.0)*max_.thrust;
   ros::Time update_time = ros::Time::now();
   control_msg_.header.stamp = update_time;
   control_msg_.header.frame_id = "rotors_edrone_frame";
-  Publish();
+
 }
 
 void Edrone_Trans::Publish() {
@@ -84,7 +86,14 @@ void Edrone_Trans::Publish() {
 int main(int argc, char** argv) {
   ros::init(argc, argv, "rotors_edrone_interface");
   Edrone_Trans edrone_trans;
-  ros::spin();
+  ros::Rate loop_rate(30);
+  while(ros::ok())
+  {
+    edrone_trans.Publish();
+    ros::spinOnce();
+    loop_rate.sleep();
+  }
+  ROS_INFO("EXITEDadasdasdas");
   return 0;
 }
 

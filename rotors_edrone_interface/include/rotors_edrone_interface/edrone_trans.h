@@ -23,10 +23,11 @@
 #define ROTORS_EDRONE_INTERFACE_EDRONE_H_
 
 #include <geometry_msgs/PoseStamped.h>
+
 #include <edrone_client/edrone_msgs.h>
 #include <mav_msgs/RollPitchYawrateThrust.h>
 #include <ros/ros.h>
-#include <sensor_msgs/Joy.h>
+#include <ros/console.h>
 
 struct Axes {
   int roll;
@@ -66,10 +67,10 @@ class Edrone_Trans {
   void StopMav();
 
   void TransCallback(const edrone_client::edrone_msgs::ConstPtr& msg);
-  void Publish();
 
  public:
   Edrone_Trans();
+  void Publish();
 };
 
 #endif // ROTORS_JOY_INTERFACE_JOY_H_

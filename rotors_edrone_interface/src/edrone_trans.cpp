@@ -112,7 +112,7 @@ Edrone_Trans::Edrone_Trans() {
   pnh.param("max_roll", max_.roll, 8.5 * M_PI / 180.0);  // [rad]
   pnh.param("max_pitch", max_.pitch, 8.5 * M_PI / 180.0);  // [rad]
   pnh.param("max_yaw_rate", max_.rate_yaw, 45.0 * M_PI / 180.0);  // [rad/s]
-  pnh.param("max_thrust", max_.thrust, 4.0);  // [N]
+  pnh.param("max_thrust", max_.thrust, 0.8);  // [N]
   pnh.param("division_factor", div_factor, 85.0);  
   pnh.param("v_yaw_step", v_yaw_step_, 0.05);  // [rad/s]
   pnh.param("v_yaw_step", v_yaw_step_, 0.05);
@@ -139,7 +139,7 @@ void Edrone_Trans::TransCallback(const edrone_client::edrone_msgs::ConstPtr& msg
   // else
   //   control_msg_.thrust.z = ((-((1500-msg->rcThrottle)/1000.0))*max_.thrust)+thrust_weight_offset_newtons_;
   //control_msg_.thrust.z = ((msg->rcThrottle-1000)/1000.0)*max_.thrust;
-  control_msg_.thrust.z = ((msg->rcThrottle-1500) * max_.thrust / 50.0 * axes_.thrust_direction)+thrust_weight_offset_newtons_;
+  control_msg_.thrust.z = ((msg->rcThrottle-1500) * max_.thrust / 200.0 * axes_.thrust_direction)+thrust_weight_offset_newtons_;
   ros::Time update_time = ros::Time::now();
   control_msg_.header.stamp = update_time;
   control_msg_.header.frame_id = "rotors_edrone_frame";
@@ -155,19 +155,19 @@ int main(int argc, char** argv) {
   ros::spin();
   return 0;
 }
-int main(int argc, char** argv) {
-  ros::init(argc, argv, "rotors_edrone_interface");
-  Edrone_Trans edrone_trans;
-  ros::Rate loop_rate(30);
-  while(ros::ok())
-  {
-    edrone_trans.Publish();
-    ros::spinOnce();
-    loop_rate.sleep();
-  }
-  ROS_INFO("EXITEDadasdasdas");
-  return 0;
-}
+// int main(int argc, char** argv) {
+//   ros::init(argc, argv, "rotors_edrone_interface");
+//   Edrone_Trans edrone_trans;
+//   ros::Rate loop_rate(30);
+//   while(ros::ok())
+//   {
+//     edrone_trans.Publish();
+//     ros::spinOnce();
+//     loop_rate.sleep();
+//   }
+//   ROS_INFO("EXITEDadasdasdas");
+//   return 0;
+// }
 
 
 /*

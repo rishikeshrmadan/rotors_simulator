@@ -3,7 +3,12 @@ mass: 0.027
 inertia: {xx: 1.657171e-06, xy: 0.0, xz: 0.0, yy: 1.657171e-06, yz: 0.0, zz: 2.9261652e-06}
 
 rotor_configuration: 
-  '0': {angle: -0.78539, arm_length: 0.065, rotor_force_constant: 1.28192e-08, rotor_moment_constant: 5.964552e-03, direction: 1.0}
+  '0': {angle: -0.78539, arm_length: 0.065, rotor_force_constant: 1.28192e-08, rotor_moment_constant: 5.964552e-03, direction: -1.0}
   '1': {angle: 2.35619, arm_length: 0.065, rotor_force_constant: 1.28192e-08, rotor_moment_constant: 5.964552e-03, direction: 1.0}
   '2': {angle: 0.78539, arm_length: 0.065, rotor_force_constant: 1.28192e-08, rotor_moment_constant: 5.964552e-03, direction: -1.0}
-  '3': {angle: -2.35619, arm_length: 0.065, rotor_force_constant: 1.28192e-08, rotor_moment_constant: 5.964552e-03, direction: -1.0}
+  '3': {angle: -2.35619, arm_length: 0.065, rotor_force_constant: 1.28192e-08, rotor_moment_constant: 5.964552e-03, direction: 1.0}
+# rotor_configuration: 
+#   '0': {angle: 0, arm_length: 0.065, rotor_force_constant: 1.28192e-08, rotor_moment_constant: 5.964552e-03, direction: -1.0}
+#   '1': {angle: 1.57079632679, arm_length: 0.065, rotor_force_constant: 1.28192e-08, rotor_moment_constant: 5.964552e-03, direction: 1.0}
+#   '2': {angle: 3.14159265359, arm_length: 0.065, rotor_force_constant: 1.28192e-08, rotor_moment_constant: 5.964552e-03, direction: -1.0}
+#   '3': {angle: -1.57079632679, arm_length: 0.065, rotor_force_constant: 1.28192e-08, rotor_moment_constant: 5.964552e-03, direction: 1.0}

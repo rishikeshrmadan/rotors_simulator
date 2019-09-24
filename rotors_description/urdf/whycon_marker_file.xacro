@@ -21,8 +21,8 @@
 	<xacro:macro name="whycon_marker" params="namespace marker_width marker_radius marker">
 		<joint name="${marker}_joint" type="fixed">
 			<!-- <origin xyz="0 0 0.095" rpy="0 0 0"/> -->
-			<origin xyz="0 0 0.015" rpy="0 0 0"/>
-			<!-- <origin xyz="0 0 0.03" rpy="0 0 0"/> -->
+			<!-- <origin xyz="0 0 0.015" rpy="0 0 0"/> -->
+			<origin xyz="0 0 0.035" rpy="0 0 0"/>
 			<!-- ^^ for ardrone -->
 			<parent link="${namespace}/base_link"/>
 			<child link="${marker}_link"/>
@@ -37,36 +37,13 @@
 				<visual name='Marker0'>
 					<origin xyz="-0.01838 0 0" rpy="0 1.570796327 0"/>
 					<geometry>
-						<!-- <cylinder length="${marker_width}" radius="${marker_radius}"/> -->
-						<!-- <box size="${marker_radius} ${marker_radius} ${marker_width}"/> -->
-						<!-- <mesh filename="model://marker0/meshes/Marker0.dae" scale="0.25 0.075 0.075" /> -->
-						<!-- <mesh filename="package://rotors_description/models/marker0/meshes/Marker1.dae" scale="0.25 0.075 0.075"/> -->
+						
+						<!-- <mesh filename="package://rotors_gazebo/models/marker0/meshes/Marker1.dae" scale="0.25 0.075 0.075"/> -->
 						<mesh filename="package://rotors_gazebo/models/marker0/meshes/Marker1.dae" scale="0.25 0.075 0.075"/>
-						<!-- <uri>model://marker0/meshes/Marker0.dae</uri> -->
-
+	
 					</geometry>
-					<!-- <material name="WhyconMarkerTexture"/> -->
-					<!-- <material>
-						<texture filename="package://rotors_description/models/Marker0/meshes/Marker0.dae"/>
-					</material> -->
-					<!-- <material name="Marker1_png"> -->
-					<!-- <script> -->
-					<!-- <uri>models://marker0/materials/scripts/whycon_marker.material</uri> -->
-					<!-- <name>Gazebo/WhyconMarkerTexture</name> -->
-					<!-- <texture filename="package://rotors_description/models/marker0/meshes/Marker0.dae" /> -->
-					<!-- </script> -->
-					<!-- </material> -->
+	
 				</visual>
-				<collision>
-					<geometry>
-						<!-- <cylinder length="${marker_width}" radius="${marker_radius}"/> -->
-						<box size="${marker_radius} ${marker_radius} ${marker_width}"/>
-					</geometry>
-				</collision>
 			</link>
-			<!-- <gazebo reference="${marker}_link"> -->
-				<!-- <material>Gazebo/Marker1_png</material> -->
-				<!-- <material>Gazebo/WhyconMarkerTexture</material>
-			</gazebo> -->
 		</xacro:macro>
 	</robot>

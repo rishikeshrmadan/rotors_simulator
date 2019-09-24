@@ -21,7 +21,9 @@
 	<xacro:macro name="whycon_marker" params="namespace marker_width marker_radius marker">
 		<joint name="${marker}_joint" type="fixed">
 			<!-- <origin xyz="0 0 0.095" rpy="0 0 0"/> -->
-			<origin xyz="0 0 0.015" rpy="0 0 0"/>
+			<!-- <origin xyz="0 0 0.015" rpy="0 0 0"/> -->
+			<origin xyz="0 0 0.03" rpy="0 0 0"/>
+			<!-- ^^ for ardrone -->
 			<parent link="${namespace}/base_link"/>
 			<child link="${marker}_link"/>
 		</joint>

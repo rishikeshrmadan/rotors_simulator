@@ -1,4 +1,4 @@
-# Crazyflie 2.0 vehicle parameters
+# edronevehicle parameters
 mass: 0.027
 inertia: {xx: 1.657171e-06, xy: 0.0, xz: 0.0, yy: 1.657171e-06, yz: 0.0, zz: 2.9261652e-06}
 

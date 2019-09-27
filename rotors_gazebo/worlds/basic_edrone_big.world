@@ -57,7 +57,8 @@
 				<gravity>1</gravity>
 			</link>
 			<link name='camera_link'>
-				<pose>0 0 2.4364 0 1.57 1.57</pose> <!-- camera placed at a heigth of 8 feet-->
+				<!-- <pose>0 0 2.4364 0 1.57 1.57</pose>  --><!-- camera placed at a heigth of 8 feet-->
+				<pose>0 0 4.8768 0 1.57 1.57</pose> <!-- height = 16 feets-->
 				<inertial>
 					<mass>0.1</mass>
 					<inertia>
@@ -72,7 +73,7 @@
 				<collision name='collision'>
 					<geometry>
 						<box>
-							<size>0.001 0.001 0.001</size>
+							<size>0.01 0.01 0.01</size>
 						</box>
 					</geometry>
 					<max_contacts>10</max_contacts>
@@ -89,7 +90,7 @@
 				<visual name='visual'>
 					<geometry>
 						<box>
-							<size>0.001 0.001 0.001</size>
+							<size>0.01 0.01 0.01</size>
 						</box>
 					</geometry>
 				</visual>
@@ -102,7 +103,7 @@
 						</image>
 						<clip>
 							<near>0.1</near>
-							<far>2.5</far>
+							<far>5.0</far>
 						</clip>
 
 					</camera>

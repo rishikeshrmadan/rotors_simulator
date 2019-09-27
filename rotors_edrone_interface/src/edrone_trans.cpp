@@ -67,7 +67,7 @@ void Edrone_Trans::TransCallback(const edrone_client::edrone_msgs::ConstPtr& msg
   control_msg_.roll = ((msg->rcRoll-1500) * max_.roll/div_factor)*axes_.roll_direction;
   control_msg_.pitch = ((msg->rcPitch-1500) * max_.pitch/div_factor)* axes_.pitch_direction;
   control_msg_.yaw_rate = current_yaw_vel_;
-  control_msg_.thrust.z = ((msg->rcThrottle-1500) * max_.thrust / 50.0 * axes_.thrust_direction)+thrust_weight_offset_newtons_;
+  control_msg_.thrust.z = ((msg->rcThrottle-1500) * max_.thrust / 100.0 * axes_.thrust_direction)+thrust_weight_offset_newtons_;
   ros::Time update_time = ros::Time::now();
   control_msg_.header.stamp = update_time;
   control_msg_.header.frame_id = "rotors_edrone_frame";

@@ -10,7 +10,7 @@
   <xacro:property name="body_width" value="0.3" /> <!-- [m] -->
   <xacro:property name="body_height" value="0.16" /> <!-- [m] -->
   <xacro:property name="mass_rotor" value="0.005" /> <!-- [kg] -->
-  <xacro:property name="arm_length" value="0.09" /> <!-- [m] -->
+  <xacro:property name="arm_length" value="0.18" /> <!-- [m] -->
   <!-- changed from 0.023 to 0.027 -->
   <xacro:property name="rotor_offset_top" value="0.0420" /> <!-- [m] -->
   <xacro:property name="radius_rotor" value="0.1" /> <!-- [m] -->
@@ -19,10 +19,11 @@
   <xacro:property name="time_constant_up" value="0.0125" /> <!-- [s] -->
   <xacro:property name="time_constant_down" value="0.025" /> <!-- [s] -->
   <xacro:property name="max_rot_velocity" value="838" /> <!-- [rad/s] -->
-    <xacro:property name="motor_offset_top" value="-0.0409" />
+  <xacro:property name="motor_offset_top" value="-0.0409" />
   <xacro:property name="sin30" value="0.5" />
   <xacro:property name="cos30" value="0.866025403784" />
-  <xacro:property name="sqrt2" value="1.4142135623730951" />
+  <!-- <xacro:property name="sqrt2" value="1.4142135623730951" /> -->
+  <xacro:property name="sqrt2by2" value="0.707106781186" />
   <xacro:property name="rotor_drag_coefficient" value="8.06428e-05" />
   <xacro:property name="rolling_moment_coefficient" value="0.000001" />
 
@@ -70,7 +71,7 @@
     color="Red"
     use_own_mesh="false"
     mesh="">
-    <origin xyz="${sqrt2 * arm_length} -${sqrt2 * arm_length} ${rotor_offset_top}" rpy="0 0 0" />
+    <origin xyz="${sqrt2by2 * arm_length} -${sqrt2by2 * arm_length} ${rotor_offset_top}" rpy="0 0 0" />
     <xacro:insert_block name="rotor_inertia" />
   </xacro:vertical_rotor>
    <xacro:vertical_motor 
@@ -79,7 +80,7 @@
     parent="${namespace}/base_link"
     robot_namespace="${namespace}"
     suffix="front_right">
-    <origin xyz="${sqrt2 * arm_length} -${sqrt2 * arm_length} ${motor_offset_top}" rpy="1.570796327 0 0"/>
+    <origin xyz="${sqrt2by2 * arm_length} -${sqrt2by2 * arm_length} ${motor_offset_top}" rpy="1.570796327 0 0"/>
   </xacro:vertical_motor>
 
   <xacro:vertical_rotor
@@ -100,7 +101,7 @@
     color="Blue"
     use_own_mesh="false"
     mesh="">
-    <origin xyz="-${sqrt2 * arm_length} ${sqrt2 * arm_length} ${rotor_offset_top}" rpy="0 0 0" />
+    <origin xyz="-${sqrt2by2 * arm_length} ${sqrt2by2 * arm_length} ${rotor_offset_top}" rpy="0 0 0" />
     <xacro:insert_block name="rotor_inertia" />
   </xacro:vertical_rotor>
   <xacro:vertical_motor 
@@ -109,7 +110,7 @@
     parent="${namespace}/base_link"
     robot_namespace="${namespace}"
     suffix="back_left">
-    <origin xyz="-${sqrt2 * arm_length} ${sqrt2 * arm_length} ${motor_offset_top}" rpy="1.570796327 0 0"/>
+    <origin xyz="-${sqrt2by2 * arm_length} ${sqrt2by2 * arm_length} ${motor_offset_top}" rpy="1.570796327 0 0"/>
   </xacro:vertical_motor>
 
   <xacro:vertical_rotor robot_namespace="${namespace}"
@@ -129,7 +130,7 @@
     color="Red"
     use_own_mesh="false"
     mesh="">
-    <origin xyz="${sqrt2 * arm_length} ${sqrt2 * arm_length} ${rotor_offset_top}" rpy="0 0 0" />
+    <origin xyz="${sqrt2by2 * arm_length} ${sqrt2by2 * arm_length} ${rotor_offset_top}" rpy="0 0 0" />
     <xacro:insert_block name="rotor_inertia" />
   </xacro:vertical_rotor>
    <xacro:vertical_motor 
@@ -138,7 +139,7 @@
     parent="${namespace}/base_link"
     robot_namespace="${namespace}"
     suffix="front_left">
-    <origin xyz="${sqrt2 * arm_length} ${sqrt2 * arm_length} ${motor_offset_top}" rpy="1.570796327 0 0"/>
+    <origin xyz="${sqrt2by2 * arm_length} ${sqrt2by2 * arm_length} ${motor_offset_top}" rpy="1.570796327 0 0"/>
   </xacro:vertical_motor>
 
   <xacro:vertical_rotor robot_namespace="${namespace}"
@@ -158,7 +159,7 @@
     color="Blue"
     use_own_mesh="false"
     mesh="">
-    <origin xyz="-${sqrt2 * arm_length} -${sqrt2 * arm_length} ${rotor_offset_top}" rpy="0 0 0" />
+    <origin xyz="-${sqrt2by2 * arm_length} -${sqrt2by2 * arm_length} ${rotor_offset_top}" rpy="0 0 0" />
     <xacro:insert_block name="rotor_inertia" />
   </xacro:vertical_rotor>
     <xacro:vertical_motor 
@@ -167,7 +168,7 @@
     parent="${namespace}/base_link"
     robot_namespace="${namespace}"
     suffix="back_right">
-    <origin xyz="-${sqrt2 * arm_length} -${sqrt2 * arm_length} ${motor_offset_top}" rpy="1.570796327 0 0"/>
+    <origin xyz="-${sqrt2by2 * arm_length} -${sqrt2by2 * arm_length} ${motor_offset_top}" rpy="1.570796327 0 0"/>
   </xacro:vertical_motor>
 
 
